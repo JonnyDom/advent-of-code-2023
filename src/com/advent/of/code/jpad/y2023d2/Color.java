@@ -7,7 +7,7 @@ public enum Color {
     RED("red"),
     GREEN("green");
 
-    private String value;
+    private final String value;
 
     private Color(String value) {
         this.value = value;

@@ -3,7 +3,7 @@ package com.advent.of.code.jpad.y2023d2;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class CubeRevealSet {
@@ -12,7 +12,7 @@ public class CubeRevealSet {
         return cubeCounts;
     }
 
-    private Map<Color, Integer> cubeCounts;
+    private final Map<Color, Integer> cubeCounts;
 
     private CubeRevealSet(Map<Color, Integer> cubeCounts) {
         this.cubeCounts = cubeCounts;
@@ -26,14 +26,19 @@ public class CubeRevealSet {
     }
 
     public boolean allowsConfiguration(List<CubeCount> bagConfiguration) {
-        AtomicBoolean allows = new AtomicBoolean(true);
-        cubeCounts.forEach((color, amount) -> {
-            CubeCount cubesOfAGivenColorInTheBag = bagConfiguration.stream().filter(cubesOfColor -> cubesOfColor.getColor() == color).findAny().orElse(null);
-            if (cubesOfAGivenColorInTheBag == null || cubesOfAGivenColorInTheBag.getAmount() < amount) {
-                allows.set(false);
-            }
-        });
-        return allows.get();
+        return cubeCounts.entrySet()
+                .stream()
+                .noneMatch(anNonExistentCubeColorOrLessThanTheExistingAmount(bagConfiguration));
+    }
+
+    private static Predicate<Map.Entry<Color, Integer>> anNonExistentCubeColorOrLessThanTheExistingAmount(List<CubeCount> bagConfiguration) {
+        return (cubeRetrieval) -> {
+            CubeCount cubesOfAGivenColorInTheBag = bagConfiguration.stream()
+                    .filter(cubesOfColor -> cubesOfColor.getColor() == cubeRetrieval.getKey())
+                    .findAny()
+                    .orElse(null);
+            return cubesOfAGivenColorInTheBag == null || cubesOfAGivenColorInTheBag.getAmount() < cubeRetrieval.getValue();
+        };
     }
 
     @Override

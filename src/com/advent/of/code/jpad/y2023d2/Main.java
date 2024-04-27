@@ -9,10 +9,9 @@ import java.util.Map;
 import java.util.function.ToIntFunction;
 import java.util.stream.Stream;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) throws IOException {
+        long startTime = System.currentTimeMillis();
 
         List<CubeCount> bagConfiguration = new ArrayList<>(3);
         bagConfiguration.add(CubeCount.of(Color.RED, 12));
@@ -31,6 +30,7 @@ public class Main {
                     .sum();
             System.out.println(sum);
         }
+        System.out.println("Solved in " + (System.currentTimeMillis() - startTime) + " ms");
     }
 
     private static ToIntFunction<Map<Color, Integer>> numberOfCubesMultipliedTogether() {

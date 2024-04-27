@@ -33,11 +33,13 @@ public class Main {
         //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
         // to see how IntelliJ IDEA suggests fixing it.
 
+        long startTime = System.currentTimeMillis();
         try (Stream<String> lines = Files.lines(Paths.get("input/y2023/input-d1.txt"))) {
             int sum = lines.map(toPairOfFirstAndLastDigit())
                     .map(parsingTheDigits()).mapToInt(Integer::intValue).sum();
             System.out.println(sum);
         }
+        System.out.println("Solved in " + (System.currentTimeMillis() - startTime) + " ms");
     }
 
     private static Function<String, Pair<String, String>> toPairOfFirstAndLastDigit() {

@@ -7,8 +7,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Game {
-    private int gameNumber;
-    private List<CubeRevealSet> setsOfCubesRevealed;
+    private final int gameNumber;
+    private final List<CubeRevealSet> setsOfCubesRevealed;
 
     private Game(int gameNumber, List<CubeRevealSet> setsOfCubesRevealed) {
         this.gameNumber = gameNumber;
