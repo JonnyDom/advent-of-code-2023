@@ -1,7 +1,5 @@
 package com.advent.of.code.jpad.y2023d1;
 
-import javafx.util.Pair;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -42,12 +40,12 @@ public class Main {
         System.out.println("Solved in " + (System.currentTimeMillis() - startTime) + " ms");
     }
 
-    private static Function<String, Pair<String, String>> toPairOfFirstAndLastDigit() {
+    private static Function<String, DigitPair> toPairOfFirstAndLastDigit() {
         return lineOfCharacters -> {
             String firstDigit = findDigitAsCharInString(lineOfCharacters, false);
             String lastDigit = findDigitAsCharInString(lineOfCharacters, true);
             System.out.println(lineOfCharacters + " - number: " + firstDigit + lastDigit);
-            return new Pair<>(firstDigit, lastDigit);
+            return DigitPair.of(firstDigit, lastDigit);
         };
     }
 
@@ -86,9 +84,9 @@ public class Main {
         return DIGITS_SPELLED_OUT.keySet().stream().anyMatch(digit -> digit.contains(potentialNumber));
     }
 
-    private static Function<Pair<String, String>, Integer> parsingTheDigits() {
+    private static Function<DigitPair, Integer> parsingTheDigits() {
         return pair -> {
-            String concatenatedNumber = "" + pair.getKey() + pair.getValue();
+            String concatenatedNumber = pair.getLeftMost() + pair.getRightMost();
             return Integer.parseInt(concatenatedNumber);
         };
     }
