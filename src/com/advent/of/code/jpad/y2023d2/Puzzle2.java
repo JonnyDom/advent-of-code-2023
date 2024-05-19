@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.function.ToIntFunction;
 import java.util.stream.Stream;
 
-public class Main {
+public class Puzzle2 {
     public static void main(String[] args) throws IOException {
         long startTime = System.currentTimeMillis();
 

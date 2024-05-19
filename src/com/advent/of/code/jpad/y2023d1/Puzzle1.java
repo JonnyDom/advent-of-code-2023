@@ -9,11 +9,9 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class Main {
+public class Puzzle1 {
 
-    private static Map<String, String> DIGITS_SPELLED_OUT = new HashMap<>();
+    private static final Map<String, String> DIGITS_SPELLED_OUT = new HashMap<>();
 
     static {
         DIGITS_SPELLED_OUT.put("one", "1");

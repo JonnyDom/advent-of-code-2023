@@ -3,14 +3,11 @@ package com.advent.of.code.jpad.y2023d3;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.sql.SQLOutput;
 import java.util.*;
-import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-public class Main {
+public class Puzzle3 {
     public static void main(String[] args) throws IOException {
         long startTime = System.currentTimeMillis();
 
