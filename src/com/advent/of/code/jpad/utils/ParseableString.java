@@ -32,7 +32,20 @@ public class ParseableString {
         return input;
     }
 
+    public int toIntValue(){
+        return Integer.parseInt(input);
+    }
+
+    public long toLongValue(){
+        return Long.parseLong(input);
+    }
+
     public boolean nonBlank() {
         return !input.isBlank();
+    }
+
+    @Override
+    public String toString() {
+        return input;
     }
 }

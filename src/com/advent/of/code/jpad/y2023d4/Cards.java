@@ -22,8 +22,7 @@ public class Cards {
         return ParseableString.of(numbersString)
                 .valuesSeparatedBy(" ")
                 .filter(ParseableString::nonBlank)
-                .map(ParseableString::toStringValue)
-                .map(Integer::parseInt)
+                .map(ParseableString::toIntValue)
                 .toList();
     }
 }
