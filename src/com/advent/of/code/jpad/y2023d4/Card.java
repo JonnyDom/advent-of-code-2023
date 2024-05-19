@@ -1,58 +1,41 @@
 package com.advent.of.code.jpad.y2023d4;
 
-import com.advent.of.code.jpad.utils.ParseableString;
-
+import java.util.ArrayList;
 import java.util.List;
 
-public class Card {
+public record Card(int cardNumber, List<Integer> winningNumbers, List<Integer> scratchNumbers) {
 
-    private final int cardNumber;
-    private final List<Integer> winningNumbers;
-    private final List<Integer> scratchNumbers;
-    private int points = 0;
-    private int matches = 0;
-
-    private Card(int cardNumber, List<Integer> winningNumbers, List<Integer> scratchNumbers) {
-        this.cardNumber = cardNumber;
-        this.winningNumbers = winningNumbers;
-        this.scratchNumbers = scratchNumbers;
-        countPoints();
+    /**
+     * Solution to part 1
+     * @return the number of points
+     */
+    public int countPoints() {
+        return (int) Math.pow(2, getMatches() - 1);
     }
 
-    public static Card parseLine(String cardLine) {
-        String cardNumber = ParseableString.of(cardLine).valueBetween("Card ", ":").toStringValue();
-        List<String> numbersGroups = ParseableString.of(cardLine)
-                .valueBetween(": ", "")
-                .valuesSeparatedBy("\\|")
-                .map(ParseableString::toStringValue)
-                .toList();
-        List<Integer> winningNumbers = parseGroupOfNumbers(numbersGroups.get(0));
-        List<Integer> scratchNumbers = parseGroupOfNumbers(numbersGroups.get(1));
-        return new Card(Integer.parseInt(cardNumber), winningNumbers, scratchNumbers);
-    }
-
-    private static List<Integer> parseGroupOfNumbers(String numbersString) {
-        return ParseableString.of(numbersString)
-                .valuesSeparatedBy(" ")
-                .filter(ParseableString::nonBlank)
-                .map(ParseableString::toStringValue)
-                .map(Integer::parseInt)
-                .toList();
-    }
-
-    private void countPoints() {
-        matches = (int) scratchNumbers.stream()
-                .filter(winningNumbers::contains)
-                .count();
-        points = (int) Math.pow(2, matches - 1);
-    }
-
-    public int getPoints() {
-        return points;
+    /**
+     * Solution to part 2
+     * @param totalScore
+     * @param totalCards
+     * @param cardsToProcess
+     * @return
+     */
+    public int countRecursiveScore(int totalScore, List<Card> totalCards, List<Card> cardsToProcess) {
+        List<Card> newCardsToProcess = new ArrayList<>();
+        for (Card cardToProcess : cardsToProcess) {
+            int matches = cardToProcess.getMatches();
+            if (cardNumber < totalCards.size()) {
+                newCardsToProcess.addAll(totalCards.subList(cardNumber - 1, Math.max(cardNumber + matches - 1, totalCards.size() -1)));
+            }
+            totalScore += matches;
+        }
+        return newCardsToProcess.isEmpty() ? totalScore : countRecursiveScore(totalScore, totalCards, newCardsToProcess);
     }
 
     public int getMatches() {
-        return matches;
+        return (int) scratchNumbers.stream()
+                .filter(winningNumbers::contains)
+                .count();
     }
 
     @Override
