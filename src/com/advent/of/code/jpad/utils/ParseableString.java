@@ -1,6 +1,8 @@
 package com.advent.of.code.jpad.utils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Stream;
 
 public class ParseableString {
@@ -24,8 +26,32 @@ public class ParseableString {
         return new ParseableString(input.substring(startIndex, endIndex).trim());
     }
 
+    public ParseableString withContentReplaced(String contentReplaced, String replacingContent) {
+        return new ParseableString(input.replaceAll(" ", ""));
+    }
+
     public Stream<ParseableString> valuesSeparatedBy(String separator) {
         return Arrays.stream(input.split(separator)).map(String::trim).map(ParseableString::new);
+    }
+
+    public Stream<ParseableString> valuesSeparatedByBlanks() {
+        if (input.isBlank()) {
+            return Stream.of();
+        }
+
+        List<String> nonBlanks = new ArrayList<>();
+        String parsedInput = input;
+        while (!parsedInput.isBlank()) {
+            int blankIndex = parsedInput.indexOf(' ');
+            int newEndIndex = blankIndex != -1 ? blankIndex : parsedInput.length();
+            String newElement = parsedInput.substring(0, newEndIndex).trim();
+            if (!newElement.isBlank()) {
+                nonBlanks.add(newElement);
+            }
+            parsedInput = parsedInput.substring(newEndIndex).trim();
+        }
+
+        return nonBlanks.stream().map(ParseableString::new);
     }
 
     public String toStringValue(){
