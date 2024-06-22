@@ -22,12 +22,12 @@ public class ParseableString {
 
     public ParseableString valueBetween(String firstSubstring, String secondSubstring) {
         int startIndex = firstSubstring.isBlank() ? 0 : input.indexOf(firstSubstring) + firstSubstring.length();
-        int endIndex = secondSubstring.isBlank() ? input.length() : input.indexOf(secondSubstring);
+        int endIndex = secondSubstring.isBlank() ? input.length() : input.indexOf(secondSubstring, startIndex);
         return new ParseableString(input.substring(startIndex, endIndex).trim());
     }
 
     public ParseableString withContentReplaced(String contentReplaced, String replacingContent) {
-        return new ParseableString(input.replaceAll(" ", ""));
+        return new ParseableString(input.replaceAll(contentReplaced, replacingContent));
     }
 
     public Stream<ParseableString> valuesSeparatedBy(String separator) {
