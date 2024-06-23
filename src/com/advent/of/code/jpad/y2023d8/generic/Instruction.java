@@ -1,4 +1,4 @@
-package com.advent.of.code.jpad.y2023d8;
+package com.advent.of.code.jpad.y2023d8.generic;
 
 import java.util.Arrays;
 
@@ -16,6 +16,6 @@ public enum Instruction {
         return Arrays.stream(values())
                 .filter(value -> value.label == label)
                 .findFirst()
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(IllegalArgumentException::new);//(NDS, FTV) (FTV, NDS)
     }
 }

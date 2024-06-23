@@ -22,7 +22,6 @@ public class BoatPerformanceAnalyzer {
         if (raceRecord.duration() % 2 == 0) {
             recordBreakingDurations--;
         }
-        System.out.println(recordBreakingDurations);
         return recordBreakingDurations;
     }
 }

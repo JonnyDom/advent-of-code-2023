@@ -1,4 +1,4 @@
-package com.advent.of.code.jpad.y2023d8;
+package com.advent.of.code.jpad.y2023d8.generic;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -7,9 +7,9 @@ public class NodeMap {
     private final List<Instruction> instructions;
     private final NodeNetwork nodeNetwork;
 
-    public static NodeMap parseInput(Stream<String> lines) {
+    public static NodeMap ofInput(Stream<String> lines, NodeNetworkFactory.Part part) {
         List<String> input = lines.toList();
-        NodeNetwork network = NodeNetwork.parseInput(input.subList(2, input.size()));
+        NodeNetwork network = NodeNetworkFactory.initializeNetwork(input.subList(2, input.size()), part);
         return new NodeMap(input.get(0).chars().mapToObj(Instruction::fromLabel).toList(), network);
     }
 
@@ -18,7 +18,7 @@ public class NodeMap {
         this.nodeNetwork = nodeNetwork;
     }
 
-    public int countStepsNeededToReachEndNode() {
+    public long countStepsNeededToReachEndNode() {
         return nodeNetwork.processInstructionsUntilEndNode(instructions);
     }
 }

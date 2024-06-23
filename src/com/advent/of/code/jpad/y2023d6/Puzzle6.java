@@ -14,7 +14,7 @@ import java.util.stream.Stream;
 
 public class Puzzle6 {
     public static void main(String[] args) throws IOException {
-        // Part 1
+        // Part 1 - takes ~ 12 ms
         long startTime = System.currentTimeMillis();
         try (Stream<String> lines = Files.lines(Paths.get("input/y2023/input-d6.txt"))) {
             List<String> inputLines = lines.toList();
@@ -23,7 +23,7 @@ public class Puzzle6 {
         }
         System.out.println("Solved in " + (System.currentTimeMillis() - startTime) + " ms\n");
 
-        //part 2
+        //part 2 - takes ~ 16 ms
         startTime = System.currentTimeMillis();
         try (Stream<String> lines = Files.lines(Paths.get("input/y2023/input-d6.txt"))) {
             List<String> inputLines = lines.toList();
@@ -33,7 +33,7 @@ public class Puzzle6 {
             long maxDistance = ParseableString.of(inputLines.get(1))
                     .valueBetween("Distance:", "")
                     .withContentReplaced(" ", "").toLongValue();
-            BoatPerformanceAnalyzer.computeRecordBreakingChargeDurations(new RaceRecord(raceTime, maxDistance));
+            System.out.println(BoatPerformanceAnalyzer.computeRecordBreakingChargeDurations(new RaceRecord(raceTime, maxDistance)));
         }
         System.out.println("Solved in " + (System.currentTimeMillis() - startTime) + " ms\n");
     }

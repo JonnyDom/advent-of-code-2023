@@ -10,7 +10,7 @@ import java.nio.file.Paths;
 
 public class Puzzle5 {
     public static void main(String[] args) throws IOException {
-        // Part 1
+        // Part 1 - takes ~ 30 ms
         long startTime = System.currentTimeMillis();
 
         String input = Files.readString(Paths.get("input/y2023/input-d5.txt"));
@@ -20,7 +20,7 @@ public class Puzzle5 {
         System.out.println("Lowest location number (Part 1): " + lowestLocation);
         System.out.println("Solved in " + (System.currentTimeMillis() - startTime) + " ms\n");
 
-        // Part 2
+        // Part 2 - takes ~ 50 ms
         startTime = System.currentTimeMillis();
         lowestLocation = SeedRangesAlmanac.of(input).getSeedRangeMinLocations().stream()
                 .mapToLong(Long::longValue)

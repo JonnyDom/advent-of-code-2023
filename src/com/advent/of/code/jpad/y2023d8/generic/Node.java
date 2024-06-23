@@ -1,4 +1,4 @@
-package com.advent.of.code.jpad.y2023d8;
+package com.advent.of.code.jpad.y2023d8.generic;
 
 import com.advent.of.code.jpad.utils.ParseableString;
 
