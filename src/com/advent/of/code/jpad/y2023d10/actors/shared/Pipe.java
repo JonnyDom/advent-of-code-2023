@@ -1,7 +1,8 @@
-package com.advent.of.code.jpad.y2023d10.actors;
+package com.advent.of.code.jpad.y2023d10.actors.shared;
 
 import java.util.Arrays;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static java.util.function.Predicate.not;
 
@@ -28,6 +29,14 @@ public enum Pipe {
                 .findFirst().orElseThrow(IllegalArgumentException::new);
     }
 
+    public static Pipe fromPreviousAndFollowingPipes(Direction previous, Direction following) {
+        return Arrays.stream(values())
+                .filter(pipe -> pipe.connectingDirections.contains(previous.opposite())
+                        && pipe.connectingDirections.contains(following))
+                .findFirst()
+                .orElseThrow(IllegalArgumentException::new);
+    }
+
     public Direction getNextDirectionAfterComingFrom(Direction direction) {
         return Set.of(Pipe.HORIZONTAL, Pipe.VERTICAL).contains(this) ? direction
                 : connectingDirections.stream()
@@ -38,5 +47,16 @@ public enum Pipe {
 
     public Set<Direction> getConnectingDirections() {
         return connectingDirections;
+    }
+
+    public Set<Direction> getNonConnectingDirections() {
+        return Arrays.stream(Direction.values())
+                .filter(direction -> !connectingDirections.contains(direction))
+                .collect(Collectors.toSet());
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(label);
     }
 }

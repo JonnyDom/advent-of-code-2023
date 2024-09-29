@@ -1,4 +1,4 @@
-package com.advent.of.code.jpad.y2023d10.actors;
+package com.advent.of.code.jpad.y2023d10.actors.shared;
 
 import java.util.Arrays;
 import java.util.Set;
